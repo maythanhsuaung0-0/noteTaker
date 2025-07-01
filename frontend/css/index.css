@@ -1,0 +1,173 @@
+@import url('./variables.css');
+
+body {
+  font-family: "Inter", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+body,
+ul,
+p {
+  padding: 0;
+  margin: 0;
+}
+
+h3 {
+  margin-bottom: 1em;
+  font-size: 1.4em;
+}
+
+h4 {
+  margin-bottom: 0.2em;
+  font-weight: 600;
+  font-size: 1.2em;
+}
+
+.container {
+  width: 90%;
+  margin: 2em auto;
+}
+
+.icons {
+  display: flex;
+}
+
+.with-create {
+  width: 100%;
+  display: grid;
+  position:relative;
+  grid-template-columns:85% auto; 
+  gap: 1em;
+}
+
+.notes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2em;
+}
+.folders{
+  width: 100%;
+}
+.carousel{
+  display: flex;
+  flex-direction: row;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+  scrollbar-width:none;
+  flex-wrap: nowrap;
+  flex: 0 0 auto;
+  min-width: 0;
+}
+.carousel::-webkit-scrollbar {
+  display: none;
+}
+
+
+
+.folder-card,
+.note-card {
+  padding: 1em;
+  background-color: lightblue;
+  border-radius: 1em;
+  display: grid;
+  gap: 0.8em;
+}
+
+.folder-card {
+  width: 12em;
+  margin-right: 1em;
+  flex-shrink: 0;
+}
+
+.icons,
+.time {
+  display: flex;
+  gap: 1em;
+}
+
+.icons {
+  justify-content: space-between;
+}
+
+.icon {
+  width: 1em;
+  cursor: pointer;
+  height: 1em;
+}
+
+.icon-lg {
+  cursor: pointer;
+  width: 1.5em;
+  height: 1.5em;
+}
+
+.note-icon {
+  width: 2em;
+  height: 2em;
+}
+.time .icon-lg{
+ cursor:unset;
+}
+.date {
+  color: var(--muted-color-darker);
+  font-size: 0.8em;
+}
+
+.create-btn {
+  align-self: center;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  border: 2px dashed var(--muted-color);
+  border-radius: 1em;
+  width: 8em;
+  height: 8em;
+  cursor: pointer;
+}
+.create-btn:hover{
+ background-color: var(--muted-color-lighter);
+}
+
+.create-btn>div {
+  display: grid;
+  gap: .2em;
+}
+
+.create-btn .note-icon,
+.create-btn .icon-lg {
+  margin: 0 auto;
+}
+
+/* notes */
+.notes-container {
+  margin-top: 3em;
+}
+
+.card-title>div {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--muted-color);
+  padding: 0.5em 0;
+}
+
+.note-card p {
+  color: var(--muted-color-darker);
+}
+
+.time {
+  font-size: 0.8em;
+}
+
+.note-card {
+  padding: 1.4em;
+  gap: 1.4em;
+}
+
+.note-card h4 {
+  font-size: 1.1em;
+}
