@@ -70,7 +70,7 @@ h4 {
 
 
 .folder-card,
-.note-card {
+.my-note-card {
   padding: 1em;
   background-color: lightblue;
   border-radius: 1em;
@@ -155,7 +155,7 @@ h4 {
   padding: 0.5em 0;
 }
 
-.note-card p {
+.my-note-card p {
   color: var(--muted-color-darker);
 }
 
@@ -163,11 +163,11 @@ h4 {
   font-size: 0.8em;
 }
 
-.note-card {
+.my-note-card {
   padding: 1.4em;
   gap: 1.4em;
 }
 
-.note-card h4 {
+.my-note-card h4 {
   font-size: 1.1em;
 }

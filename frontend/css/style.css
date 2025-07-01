@@ -1,3 +1,4 @@
+@import url('./variables.css');
 .modal {
   display: none;
   position: fixed;
@@ -12,8 +13,8 @@
 
 .modal-content {
   background-color: #fff;
-  margin: 10% auto;
-  padding: 30px;
+  margin: 1em auto;
+  padding: 10px;
   border-radius: 10px;
   width: 90%;
   max-width: 200%;
@@ -34,33 +35,6 @@
   color: #000;
 }
 
-:root {
-  --primary-color: #ef63f1;
-  --primary-hover: #46dde5;
-  --bg-color: lightblue;
-  --card-bg: white;
-  --text-color: #1f2937;
-  --border-color: #e5e7eb;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Times New Roman", Times, serif;
-}
-
-body {
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  line-height: 1.6;
-  padding: 20px;
-}
-
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-}
 
 .app-header {
   margin-bottom: 2rem;
