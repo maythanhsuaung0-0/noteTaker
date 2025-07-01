@@ -1,0 +1,11 @@
+:root {
+  --muted-color: rgba(130, 130, 130, 0.4);
+  --muted-color-darker: rgba(66, 66, 66, 0.8);
+  --muted-color-lighter: rgba(187, 189, 187, 0.4);
+  --primary-color: #ef63f1;
+  --primary-hover: #46dde5;
+  --bg-color: lightblue;
+  --card-bg: white;
+  --text-color: #1f2937;
+  --border-color: #e5e7eb;
+}
