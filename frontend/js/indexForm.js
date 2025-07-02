@@ -1,27 +1,15 @@
 document.addEventListener('DOMContentLoaded', function () {
     const noteForm = document.getElementById('note-form');
     const clearBtn = document.getElementById('clear-btn');
+    const tagsInput = document.getElementById('note-tags');
+    const tagsContainer = document.getElementById('tags-container');
+    const modal = document.getElementById('noteModal');
+    const openBtn = document.getElementById('openNoteBtn');
+    const closeBtn = document.getElementById('closeModal');
 
-    const noteModal = document.getElementById('noteModal');
-    const openNoteBtn = document.getElementById('openNoteBtn');
-    const closeNoteBtn = document.getElementById('closeModal');
-
-    const folderModal = document.getElementById('folderModal');
-    const openFolderBtn = document.getElementById('openFolderBtn');
-    const closeFolderBtn = document.getElementById('closeModal2');
-
-    // Open/close note modal
-    openNoteBtn.addEventListener('click', () => {
-        noteModal.style.display = 'block';
-    });
-
-    closeNoteBtn.addEventListener('click', () => {
-        noteModal.style.display = 'none';
-    });
-
-    // Open/close folder modal
-    openFolderBtn.addEventListener('click', () => {
-        folderModal.style.display = 'block';
+    openBtn.addEventListener('click', () => {
+        console.log("jkjjk")
+        modal.style.display = 'block';
     });
 
     closeFolderBtn.addEventListener('click', () => {
@@ -33,14 +21,12 @@ document.addEventListener('DOMContentLoaded', function () {
         if (e.target === noteModal) {
             noteModal.style.display = 'none';
         }
-        if (e.target === folderModal) {
-            folderModal.style.display = 'none';
-        }
     });
 
-    // Clear note form
-    clearBtn.addEventListener('click', function () {
-        noteForm.reset();
+            
+    clearBtn.addEventListener('click', function() {
+        form.reset();
+        tagsContainer.innerHTML = '';
     });
 
     // Handle note form submit
@@ -51,16 +37,40 @@ document.addEventListener('DOMContentLoaded', function () {
         const noteData = {
             title: formData.get('title'),
             content: formData.get('content'),
-            category: formData.get('category')
+            category: formData.get('category'),
+            tags: Array.from(tagsContainer.querySelectorAll('.tag')).map(tag => 
+                tag.textContent.replace('×', '').trim()
+            )
         };
 
         console.log('Note saved:', noteData);
         alert('Note saved successfully!');
+                
+        form.reset();
+        tagsContainer.innerHTML = '';
+        });
 
-        noteForm.reset();
-        noteModal.style.display = 'none';
+        tagsInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ',') {
+                e.preventDefault();
+                    
+                const tagText = tagsInput.value.trim();
+                if (tagText) {
+                    addTag(tagText);
+                    tagsInput.value = '';
+                }
+            }
+        });
+            
+        function addTag(text) {
+            const tag = document.createElement('span');
+            tag.className = 'tag';
+            tag.innerHTML = `${text} <span class="tag-remove">×</span>`;
+                
+            tag.querySelector('.tag-remove').addEventListener('click', function() {
+                tag.remove();
+            });
+                
+            tagsContainer.appendChild(tag);
+        }
     });
-
-    // You can similarly handle folder-form submit if needed
-});
-
