@@ -67,6 +67,7 @@ label {
 
 input, textarea, select {
   width: 100%;
+  box-sizing: border-box;
   padding: 0.75rem;
   border: 1px solid var(--border-color);
   border-radius: 4px;
@@ -83,29 +84,6 @@ input:focus, textarea:focus, select:focus {
 textarea {
   height: 200px;
   resize: vertical;
-}
-
-.tag-input {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  margin-top: 0.5rem;
-}
-
-.tag {
-  background-color: rgba(99, 102, 241, 0.1);
-  color: var(--primary-color);
-  padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
-  font-size: 0.875rem;
-  display: inline-flex;
-  align-items: center;
-}
-
-.tag-remove {
-  margin-left: 0.25rem;
-  cursor: pointer;
-  font-weight: bold;
 }
 
 .form-footer {
