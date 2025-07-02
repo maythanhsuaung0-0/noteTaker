@@ -14,7 +14,10 @@ app.get('/notes', (req, res) => {
   res.json({ message: "Hello world" })
 })
 // category/folder api
-// daniella here
+// daniela here
+app.get('/category', (req, res) => {
+  res.json({ message : "Hello World" })
+})
 // archives api
 // zerich add here
 app.listen(port, (req, res) => {

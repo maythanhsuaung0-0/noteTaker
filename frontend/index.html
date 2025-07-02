@@ -274,7 +274,7 @@
 
         </div>
         <!-- create -->
-        <div class="create-btn">
+        <div id="openFolderBtn" class="create-btn">
           <div>
             <!-- note icon -->
             <div class="icon note-icon">
@@ -430,9 +430,6 @@
   <div id="noteModal" class="modal">
     <div class="modal-content">
       <span id="closeModal" class="close">&times;</span>
-      <div class="note-card">
-        <form id="note-form">
-
           <div class="note-card">
             <form id="note-form">
               <div class="form-group">
@@ -463,8 +460,29 @@
               </div>
             </form>
           </div>
-          <script src="./js/indexForm.js"></script>
+</div>
+  </div>
+
+              <div id="folderModal" class="modal">
+                <div class="modal-content">
+                    <span id="closeModal2" class="close">&times;</span>
+                    <div class="folder-card">
+                        <form id="folder-form">
+                            <div class="form-group">
+                                <label for="folder-title">Folder Title</label>
+                                <input type="text" id="folder-title" name="title" placeholder="Enter folder title" required />
+                            </div>
+                            <div class="form-footer">
+                                <button type="submit" class="btn btn-primary">Create Folder</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+          
+         <script src="./js/indexForm.js"></script>
           <script src="./js/index.js"></script>
+          <script src="./js/folder.js"></script>
 </body>
 
 </html>

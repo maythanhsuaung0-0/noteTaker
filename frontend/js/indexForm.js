@@ -6,9 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const openNoteBtn = document.getElementById('openNoteBtn');
     const closeNoteBtn = document.getElementById('closeModal');
 
-    const folderModal = document.getElementById('folderModal');
-    const openFolderBtn = document.getElementById('openFolderBtn');
-    const closeFolderBtn = document.getElementById('closeModal2');
+
 
     // Open/close note modal
     openNoteBtn.addEventListener('click', () => {
@@ -19,23 +17,15 @@ document.addEventListener('DOMContentLoaded', function () {
         noteModal.style.display = 'none';
     });
 
-    // Open/close folder modal
-    openFolderBtn.addEventListener('click', () => {
-        folderModal.style.display = 'block';
-    });
 
-    closeFolderBtn.addEventListener('click', () => {
-        folderModal.style.display = 'none';
-    });
+
 
     // Click outside to close modals
     window.addEventListener('click', (e) => {
         if (e.target === noteModal) {
             noteModal.style.display = 'none';
         }
-        if (e.target === folderModal) {
-            folderModal.style.display = 'none';
-        }
+
     });
 
     // Clear note form
