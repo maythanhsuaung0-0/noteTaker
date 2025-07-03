@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Notes UI</title>
+  <link rel="stylesheet" href="css/variable.css" />
+</head>
+<body>
+
+    <header class="topbar">
+  <div class="topbar-left">
+    <!-- <button type="button" class="button">☰</button> -->
+    <button type="button" class="menu-icon" id="menu-toggle">☰</button>
+    </div>
+
+    <div class="Logo">
+ <img src="img/download.png" class="img" alt="Notes Logo">
+</div>
+
+  <h1>MY NOTES</h1>
+        <div class="topbar-right">
+          <input type="text" placeholder="Search" class="search-box" />
+          <span class="username">Zerich</span>
+          <img src="img/download (1).png" class="picture" alt="user" />
+          
+        </div>
+  
+    
+  </div>
+  
+
+ 
+  <div class="dropdown-menu" id="dropdown-menu">
+    <ul>
+      <li>Settings</li>
+      <li>Profile</li>
+      <li>Logout</li>
+    </ul>
+  </div>
+</header>
+  <div class="container">
+   
+    <aside class="sidebar">
+    
+      <div id="mySidepanel" class="sidepanel">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+  <a href="#">Add newFolder</a>
+  <a href="#">Archive</a>
+  <a href="#">Trash</a>
+  
+</div>
+
+<button class="openbtn" onclick="openNav()">☰ Toggle Sidepanel</button>  
+<h2>Collapsed Sidepanel</h2>
+<p>Click on the hamburger menu/bar icon to open the sidepanel.</p>
+     
+
+      <ul class="menu">
+        <li class="disable">🗂️ Add newFolder</li>
+        <li class="disabled">🗂️ Archive</li>
+        <li class="disabled">🗑️ Trash</li>
+      </ul>
+
+      
+    </aside>
+
+ 
+        
+      </header>
+    </main>
+  </div>
+</body>
+</html>
+
