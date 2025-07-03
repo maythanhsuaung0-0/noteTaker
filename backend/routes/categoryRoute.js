@@ -33,6 +33,7 @@ categoryRouter.get('/', async (req, res) => {
   }
 
 })
+
 categoryRouter.post('/create', async (req, res) => {
   console.log('filePath', dataFileUrl)
   let uuid = uuidv4()
@@ -76,7 +77,69 @@ categoryRouter.post('/create', async (req, res) => {
     console.log(err)
     res.json({ message: "Error while saving note" ,status:500})
   }
-})
+});
+
+categoryRouter.get('/read/:id', async (req, res) => {
+  const id = req.params.id;
+  try {
+    const stream = createInterface({
+      input: createReadStream(dataFileUrl, { encoding: 'utf8' }),
+    });
+
+    let found = null;
+
+    stream.on('line', (line) => {
+      const obj = JSON.parse(line);
+      if (obj.id === id) {
+        found = obj;
+        stream.close(); // stop reading
+      }
+    });
+
+    stream.on('close', () => {
+      if (found) {
+        res.json({ message: "Entry found", data: found });
+      } else {
+        res.status(404).json({ message: "Entry not found", data: null });
+      }
+    });
+
+  } catch (err) {
+    console.error("Error reading file", err);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+categoryRouter.put('/update/:id', async (req, res) => {
+  const id = req.params.id;
+  try {
+    const content = await readFile(dataFileUrl, 'utf8');
+    const lines = content.trim().split("\n");
+    
+    let updated = false;
+
+    const updatedLines = lines.map((line) => {
+      const obj = JSON.parse(line);
+      if (obj.id === id) {
+        updated = true;
+        return JSON.stringify({ ...obj, ...req.body }); // merge updates
+      }
+      return line;
+    });
+
+    if (!updated) {
+      return res.status(404).json({ message: "Entry not found", data: null });
+    }
+
+    await writeFile(dataFileUrl, updatedLines.join("\n") + "\n");
+    res.json({ message: "Entry updated successfully", status: 200 });
+
+  } catch (err) {
+    console.error("Error updating file", err);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 categoryRouter.delete('/delete/:id', async (req, res) => {
   const id = req.params.id;
   await readFile(dataFileUrl, 'utf8').then((data, err) => {
