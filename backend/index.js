@@ -15,15 +15,11 @@ app.use(bodyParser.json())
 // may here
 app.use('/notes',notesRouter)
 // category/folder api
-<<<<<<< HEAD
+
 // daniela here
 app.get('/category', (req, res) => {
   res.json({ message : "Hello World" })
 })
-=======
-// daniella here
-
->>>>>>> fb734835d44e78eaf3689b0dcd5cafb70df29ab3
 // archives api
 // zerich add here
 app.listen(port, (req, res) => {
