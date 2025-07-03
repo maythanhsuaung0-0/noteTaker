@@ -13,6 +13,7 @@
   display: flex;
   align-items: center;
   gap: 15px;
+  padding-left: 10%;
   
 }
 
@@ -104,5 +105,13 @@
 }
 
 .openbtn:hover {
-  background-color:#444;
+  background-color:#b782cb;
+}
+
+.sidepanel{
+  background-color: rgb(216, 183, 220) ;
+}
+
+.openbtn{
+   background-color: rgb(216, 183, 220) ;
 }
