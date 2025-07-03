@@ -4,6 +4,7 @@ import { fileURLToPath } from 'url';
 import bodyParser from 'body-parser';
 import { v4 as uuidv4 } from 'uuid'
 import { notesRouter } from './routes/notesRoute.js';
+import { categoryRouter } from './routes/categoryRoute.js';
 const app = express()
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -17,9 +18,7 @@ app.use('/notes',notesRouter)
 // category/folder api
 
 // daniela here
-app.get('/category', (req, res) => {
-  res.json({ message : "Hello World" })
-})
+app.use('/category', categoryRouter)
 // archives api
 // zerich add here
 app.listen(port, (req, res) => {

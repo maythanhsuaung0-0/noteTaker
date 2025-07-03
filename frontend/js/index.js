@@ -29,7 +29,7 @@ window.addEventListener('load', async function() {
   const expiration = now + (1000 * 60 * 60)
   let cache = JSON.parse(localStorage.getItem("notes"))
   console.log(cache)
-  if (cache.data.length > 0 && cache.expiration > now) {
+  if (cache?.data.length > 0 && cache?.expiration > now) {
     console.log("not expired yet")
     data = cache.data;
   }
