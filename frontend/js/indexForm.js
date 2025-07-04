@@ -33,25 +33,33 @@ document.addEventListener('DOMContentLoaded', function() {
       content: formData.get('content'),
       category: formData.get('category'),
     };
+   await createData('/notes/create',noteData,'/notes','notes')
+    window.location.reload()
+
+    form.reset();
+  });
+
+});
+async function createData(apiLinkToCreate,dataToUpload,apiLinkToFetch,localStorageKey){
     try {
-      const response = await fetch('/notes/create',
+      const response = await fetch(apiLinkToCreate,
         {
           method: 'POST',
           headers: {
             'Content-type': 'application/json'
           },
-          body: JSON.stringify(noteData)
+          body: JSON.stringify(dataToUpload)
         })
       let res = await response.json()
       alert(res.message)
       if (res.status = 200) {
         let now = Date.now()
         const expiration = now + (1000 * 60 * 60)
-        const response = await fetch('/notes')
+        const response = await fetch(apiLinkToFetch)
         let finalData = await response.json()
         data = finalData.data
         let cacheData = { data: data, ...{ expiration: expiration } }
-        localStorage.setItem("notes", JSON.stringify(cacheData))
+        localStorage.setItem(localStorageKey, JSON.stringify(cacheData))
 
       }
     }
@@ -59,9 +67,5 @@ document.addEventListener('DOMContentLoaded', function() {
       console.log('cannot create note', err)
     }
 
-    window.location.reload()
 
-    form.reset();
-  });
-
-});
+}
