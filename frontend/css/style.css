@@ -1,4 +1,5 @@
 @import url('./variables.css');
+
 .modal {
   display: none;
   position: fixed;
@@ -8,7 +9,7 @@
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0,0,0,0.6); 
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .modal-content {
@@ -18,7 +19,7 @@
   border-radius: 10px;
   width: 90%;
   max-width: 200%;
-  box-shadow: 0 0 10px rgba(0,0,0,0.25);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
   position: relative;
 }
 
@@ -76,7 +77,9 @@ label {
   font-weight: 500;
 }
 
-input, textarea, select {
+input,
+textarea,
+select {
   width: 100%;
   box-sizing: border-box;
   padding: 0.75rem;
@@ -86,7 +89,9 @@ input, textarea, select {
   transition: border-color 0.2s ease;
 }
 
-input:focus, textarea:focus, select:focus {
+input:focus,
+textarea:focus,
+select:focus {
   outline: none;
   border-color: var(--primary-color);
   box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
@@ -137,51 +142,103 @@ textarea {
   background-color: var(--primary-color);
   color: white;
 }
-
-@media (max-width: 640px) {
-  .form-footer {
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .btn {
-    width: 100%;
-  }
-}
-
 .topbar {
-  /* background-color: white; */
-  padding: 10px;
+  background-color: white;
+  padding: 1.2em 3em;
   display: flex;
   justify-content: space-between;
   align-items: center;
   /* border-bottom: 1px solid #eee; */
   position: relative;
-  background-color: rgb(216, 183, 220);
+  /* background-color: rgb(216, 183, 220); */
 }
+
 .topbar-left {
   display: flex;
   align-items: center;
   gap: 15px;
-  }
-.menu-icon {
-    position: absolute;
+}
+.topbar h1{
+  font-size: 1.3em;
+  padding: 0 15px;
+  color:rgba(255,87,162);
+}
+
+  .openbtn {
+    display:none;
     font-size: 20px;
     cursor: pointer;
+    color: black;
+    background-color: transparent;
+    padding: 10px 15px;
+    border: none;
+  }
+
+
+.sidepanel {
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  height: 700px;
+  top: 0;
+  left: 0;
+  background-color: white;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 5em;
+  border-right: 1px solid var(--muted-color-lighter);
+}
+
+.sidepanel a {
+
+  color: var(--muted-color-darker);
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidepanel .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+}
+.sidepanel-desktop{
+display: flex;
+gap: 1em;
+}
+
+.sidepanel-desktop a{
+  text-decoration: none;
+
+  color:rgba(255,87,162);
+}
+@media (max-width: 640px) {
+
+
+.sidepanel-desktop{
+display: none;
+gap: 1em;
+}
+
+.topbar{
+ padding: 1em;
 }
 
 .dropdown-menu {
   display: none;
   position: absolute;
   top: 60px;
-  left: 20px; /* top-left position */
-  background-color: rgb(222, 217, 217);
+  left: 20px;
+  /* top-left position */
+  background-color: white;
   box-shadow: 0 4px 10px rgba(163, 30, 30, 0);
   border-radius: 6px;
   padding: 10px;
   z-index: 10;
 }
-
 .dropdown-menu ul {
   list-style: none;
   margin: 0;
@@ -193,61 +250,17 @@ textarea {
   cursor: pointer;
 }
 
-.dropdown-menu li:hover {
-  background-color: #f0f0f0;
-}
 
+  .form-footer {
+    flex-direction: column;
+    gap: 1rem;
+  }
 
-.sidepanel  {
-  width: 0;
-  position: fixed;
-  z-index: 1;
-  height: 700px;
-  top: 0;
-  left: 0;
-  background-color: #111;
-  overflow-x: hidden;
-  transition: 0.5s;
-  padding-top: 60px;
-}
-
-.sidepanel a {
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  font-size: 25px;
-  color: #818181;
-  display: block;
-  transition: 0.3s;
-}
-
-.sidepanel a:hover {
-  color: #f1f1f1;
-}
-
-.sidepanel .closebtn {
-  position: absolute;
-  top: 0;
-  right: 25px;
-  font-size: 36px;
-}
-
-.openbtn {
-  font-size: 20px;
-  cursor: pointer;
-  background-color: #111;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-}
-
-.openbtn:hover {
-  background-color:#b782cb;
-}
-
-.sidepanel{
-  background-color: rgb(216, 183, 220) ;
-}
-
-.openbtn{
-   background-color: rgb(216, 183, 220) ;
+  .btn {
+    width: 100%;
+  }
+  .openbtn{
+    display: none;
+  }
+  
 }
