@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Archived Notes - NoteTaker</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    header {
+      background-color: rgb(216, 183, 220);
+      color: #fff;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      margin: 0;
+    }
+
+    .back-button {
+      background-color: #fff;
+      color: #333;
+      padding: 0.5rem 1rem;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+
+    .archive-container {
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .archive-item {
+      background-color: #fff;
+      padding: 1rem;
+      border-radius: 6px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .archive-item h3 {
+      margin-top: 0;
+    }
+
+    .archive-item p {
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Archived Notes</h1>
+    <a href="index.html" class="back-button">Back to Home</a>
+  </header>
+
+  <div class="archive-container" id="archiveList">
+   
+  </div>
+
+  <script>
+    
+    const archivedNotes = [ ];
+
+    const archiveList = document.getElementById('archiveList');
+
+    archivedNotes.forEach(note => {
+      const noteDiv = document.createElement('div');
+      noteDiv.className = 'archive-item';
+      noteDiv.innerHTML = `
+        <h3>${note.title}</h3>
+        <p>${note.content}</p>
+      `;
+      archiveList.appendChild(noteDiv);
+    });
+  </script>
+
+</body>
+</html>
