@@ -122,6 +122,7 @@ h4 {
 }
 
 .icon-lg,
+.note-icon,
 .unactive-icon {
 
   padding: 10px;
@@ -138,11 +139,6 @@ h4 {
 
 }
 
-.note-icon {
-  width: 2em;
-  height: 2em;
-}
-
 .time .icon-lg,
 .unactive-icon {
   cursor: unset;
@@ -154,6 +150,7 @@ h4 {
 }
 
 .create-btn {
+  background-color: white;
   align-self: center;
   display: grid;
   justify-content: center;
@@ -222,4 +219,34 @@ h4 {
   display: grid;
   gap: 1em;
   margin: 2em auto;
+}
+/* responsive */
+@media screen and (max-width:768px) {
+ 
+.notes {
+  display: grid;
+  grid-template-columns: none;
+  gap: 2em;
+}
+
+ .create-btn {
+  background-color: white;
+ position: absolute;
+ top: -3.5em;
+ right: 0;
+ width: fit-content;
+ height: 3em;
+ box-sizing: border-box;
+ }
+ .create-btn>div{
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+ }
+ .create-btn span{
+ padding-right: 10px;
+ }
+.with-create{
+ position: relative;
+}
 }

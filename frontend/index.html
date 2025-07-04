@@ -326,12 +326,49 @@
 
     </div>
   </div>
+  <div id="editnoteModal" class="modal">
+    <div class="modal-content">
+      <span id="closeEditModal" class="close">&times;</span>
+      <div class="note-card">
+
+
+        <form  method="post" id="edit-note-form">
+              <div class="form-group">
+                <label for="note-title">Title</label>
+                <input type="text" id="note-title" name="title" placeholder="Enter note title" required>
+              </div>
+
+              <div class="form-group">
+                <label for="note-category">Category</label>
+                <select id="note-category" name="category">
+                  <option value="">Select a category</option>
+                  <option value="work">Work</option>
+                  <option value="personal">Personal</option>
+                  <option value="ideas">Ideas</option>
+                  <option value="tasks">Tasks</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="note-content">Content</label>
+                <textarea id="note-content" name="content" placeholder="Write your note here..." required></textarea>
+              </div>
+
+              <div class="form-footer">
+                <button type="button" class="btn btn-secondary" id="undo-btn">Clear</button>
+                <button type="submit" class="btn btn-primary">Save Note</button>
+              </div>
+            </form>
+          </div>
+    </div>
+  </div>
+<!-- for posting note -->
   <div id="noteModal" class="modal">
     <div class="modal-content">
       <span id="closeModal" class="close">&times;</span>
       <div class="note-card">
-        <form  method="post" id="note-form">
-          <div class="note-card">
+
             <form id="note-form" method="post">
               <div class="form-group">
                 <label for="note-title">Title</label>
@@ -361,9 +398,11 @@
               </div>
             </form>
           </div>
-</div>
+    </div>
   </div>
-  </div>
+          <script src="./js/indexForm.js"></script>
+
+          <script src="./js/index.js"></script>
 
               <div id="folderModal" class="modal">
                 <div class="modal-content">

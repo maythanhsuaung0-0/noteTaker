@@ -22,27 +22,37 @@ function newElement(ele) {
 function newDiv() {
   return newElement("div")
 }
+const editForm = document.getElementById('edit-note-form');
+const undo = document.getElementById('undo-btn');
+const modal = document.getElementById('editnoteModal');
+const openBtn = document.getElementById('openEditNoteBtn');
+const closeBtn = document.getElementById('closeEditModal');
+
 
 var data = [];
 window.addEventListener('load', async function() {
   let now = Date.now()
   const expiration = now + (1000 * 60 * 60)
   let cache = JSON.parse(localStorage.getItem("notes"))
-  console.log(cache)
+  console.log(cache.data.length > 0 && cache?.expiration > now)
+
   if (cache?.data.length > 0 && cache?.expiration > now) {
     console.log("not expired yet")
     data = cache.data;
   }
   else {
+    console.log('data should be fetch')
     const response = await fetch('/notes')
     let finalData = await response.json()
     data = finalData.data
     let cacheData = { data: data, ...{ expiration: expiration } }
+    console.log(finalData.data)
+
     localStorage.setItem("notes", JSON.stringify(cacheData))
   }
-  if (data) {
+  if (data?.length !== 0) {
     notes.classList.add("notes")
-    console.log(data.length)
+    console.log('length',data.length)
     for (let i = 0; i < data.length; i++) {
       let deleteIcon = newElement("img")
       let e = data[i]
@@ -91,13 +101,65 @@ window.addEventListener('load', async function() {
       img.setAttribute("src", './../img/edit.svg')
       clockIcon.setAttribute("src", "./../img/clock.svg")
       deleteIcon.setAttribute("src", "./../img/trash.svg")
-      detail.textContent = e.content.length < 150 ? e.content : e.content.slice(0, 150) + " ..."
-      h4.textContent = e.title
+      detail.textContent = e.content?.length < 150 ? e.content : e.content?.slice(0, 150) + " ..."
+      h4.textContent = e?.title
       notes.append(card_container)
+      //when click update icon
+      img.addEventListener('click', ()=> {
+        console.log(' i was clicked', e, editForm)
+        modal.style.display = 'block';
+        editForm.title.defaultValue = e.title
+        editForm.content.defaultValue = e.content
+        editForm.category.value = e.category
+        
+        editForm.addEventListener('submit', async (event) =>{
+          event.preventDefault();
+
+          const editFormData = new FormData(editForm);
+          let editedData = {
+            title: editFormData.get('title'),
+            content: editFormData.get('content'),
+            category: editFormData.get('category'),
+          };
+          let updated_data = {...{id:e.id},...editedData, ...{createdBy:e.createdBy}} 
+          try {
+            console.log(e,'to bne edit')
+            const edit_res = await fetch(`/notes/update/${e.id}`,
+              {
+                method: 'PUT',
+                headers: {
+                  'Content-type': 'application/json'
+                },
+                body: JSON.stringify(updated_data)
+              })
+            let res = await edit_res.json()
+            alert(res.message)
+            if (res.status = 200) {
+              let now = Date.now()
+              const expiration = now + (1000 * 60 * 60)
+              const response = await fetch('/notes')
+              let afterEditData= await response.json()
+              data = afterEditData.data
+              let cacheData = { data: data, ...{ expiration: expiration } }
+              localStorage.setItem("notes", JSON.stringify(cacheData))
+
+            }
+          }
+          catch (err) {
+            console.log('cannot create note', err)
+          }
+
+          modal.style.display = 'none';
+          window.location.reload()
+          resetting(editForm)
+
+        });
+
+      })
       deleteIcon.addEventListener('click', async function() {
         console.log(e.id)
         data.splice(i, 1)
-        console.log('data without deleted guy',i, data)
+        console.log('data without deleted guy', i, data)
         let updatedContent = { data: data, ...{ expiration: expiration } }
         localStorage.setItem("notes", JSON.stringify(updatedContent))
         const res = await fetch(`/notes/delete/${e.id}`, {
@@ -125,3 +187,26 @@ window.addEventListener('load', async function() {
   }
 }
 )
+window.addEventListener('click', (e) => {
+  if (e.target === modal) {
+    modal.style.display = 'none';
+  }
+});
+
+closeBtn.addEventListener('click', () => {
+  modal.style.display = 'none';
+  resetting(editForm)
+});
+undo.addEventListener('click', function() {
+  resetting(editForm)
+});
+
+
+
+function resetting(f) {
+  f.title.defaultValue = ""
+  f.content.defaultValue = ""
+  f.category.value = ""
+  f.reset()
+
+}

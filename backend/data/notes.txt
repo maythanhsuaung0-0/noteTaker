@@ -1,5 +1,2 @@
-{"id":"4d6f0915-c2f5-4098-ae0f-11c6ef7f0ef1","title":"new day","content":"ne wme","category":"","createdBy":"2025-07-03T02:25:23.639Z"}
-{"id":"51a46381-eb44-4269-b59f-cfc3012b31d5","title":"lolll","content":"tf","category":"","createdBy":"2025-07-03T02:27:44.523Z"}
-{"id":"3ff0051f-c76d-4544-8368-f6198a8de190","title":"final","content":"dfafadf","category":"","createdBy":"2025-07-03T02:42:41.863Z"}
-{"id":"6be1d3fd-a045-4601-8f70-7e85482e463d","title":"CSS Notes","content":"fkfgmiagdfimrd","category":"other","createdBy":"2025-07-03T14:57:18.186Z"}
-{"id":"56b8aef4-8931-4277-8150-766ed364e336","title":"JavaScript Notes","content":"wjcidsbnclkwnjecowiejdiew","category":"tasks","createdBy":"2025-07-03T16:00:49.755Z"}
+{"id":"839cae21-27e9-4ce7-9d32-b86bc9b8c2b3","title":"wtf is life","content":"dafda","category":"ideas","createdBy":"2025-07-04T06:05:57.665Z"}
+{"id":"46d7d234-f0f9-4a06-a1ad-99e0f32a893e","title":"life","content":"love lies","category":"personal","createdBy":"2025-07-04T06:06:09.647Z"}
