@@ -16,7 +16,7 @@ notesRouter.get('/', async (req, res) => {
         res.json({ message: "no data", data: null })
       }
       else {
-        const stream = createInterface({
+        let stream = createInterface({
           input: createReadStream(dataFileUrl, { encoding: 'utf8' }),
         })
         stream.on('line', function(line) {
@@ -56,7 +56,7 @@ notesRouter.post('/create', async (req, res) => {
           }
         })
 
-            res.json({ message: "Note created successfully",status:200})
+        res.json({ message: "Note created successfully", status: 200 })
       }
       // if file exists, append data
       else {
@@ -70,18 +70,18 @@ notesRouter.post('/create', async (req, res) => {
           }
 
         })
-        res.json({ message: "Note created successfully" ,status:200})
+        res.json({ message: "Note created successfully", status: 200 })
 
       }
     })
   }
   catch (err) {
     console.log(err)
-    res.json({ message: "Error while saving note" ,status:500})
+    res.json({ message: "Error while saving note", status: 500 })
   }
 })
 notesRouter.delete('/delete/:id', async (req, res) => {
-  const id = req.params.id;
+  let id = req.params.id;
   await readFile(dataFileUrl, 'utf8').then((data, err) => {
     const lines = data.split("\n")
     const filteredLines = lines.filter(line => !line.includes(id))
@@ -92,11 +92,58 @@ notesRouter.delete('/delete/:id', async (req, res) => {
           res.json({ message: "Error while deleting note", data: null })
         }
       })
-      res.json({ message: "Successfully deleted",status:200, data: updatedContent })
+      res.json({ message: "Successfully deleted", status: 200, data: updatedContent })
     }
     catch (err) {
       console.log(err)
-      res.json({ message: "Error while deleting note",status:500, data: null })
+      res.json({ message: "Error while deleting note", status: 500, data: null })
     }
   })
+})
+notesRouter.put('/update/:id', async (req, res) => {
+
+  let id = req.params.id;
+  let data = []
+  console.log('to be edited', id)
+  try {
+    fs.access(dataFileUrl, fs.constants.F_OK, (err) => {
+      if (err) {
+        res.json({ message: "no data", data: null, status: 500 })
+      }
+      else {
+        let stream = createInterface({
+          input: createReadStream(dataFileUrl, { encoding: 'utf8' }),
+        })
+        stream.on('line', function(line) {
+          let line_to_update = JSON.parse(line)
+          console.log(line_to_update, id, 'compare')
+          if (line_to_update.id == id) {
+            console.log('found to edit', req.body)
+            data.push(req.body)
+          }
+          else {
+            console.log(line)
+            data.push(line_to_update)
+          }
+        })
+        stream.on('close', function() {
+          let linesToWrite = data.map((d)=>JSON.stringify(d)).join("\n")
+          console.log('written', linesToWrite, data)
+          writeFile(dataFileUrl, linesToWrite, (err) => {
+            if (err) {
+              res.json({ message: "Error while updating note", data: null,status:500 })
+            }
+          })
+          res.json({ message: "Successfully updated", status: 200, data: data })
+
+        })
+
+      }
+    })
+  }
+  catch (err) {
+    console.log(err)
+  }
+
+
 })
