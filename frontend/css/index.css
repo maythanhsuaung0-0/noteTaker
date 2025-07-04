@@ -4,7 +4,6 @@ body {
   font-family: "Inter", sans-serif;
   background-color: rgba(237,237,237,0.5);
 }
-
 h1,
 h2,
 h3,
@@ -51,7 +50,7 @@ h4 {
   gap: 1em;
 }
 
-.notes {
+.notes,.cards {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 2em;

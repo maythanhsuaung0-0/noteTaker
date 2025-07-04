@@ -1,4 +1,3 @@
-
 const lightPalette = [
   "#FCEFEF", // soft rose
   "#FFF6E5", // light peach
@@ -17,6 +16,12 @@ const lightPalette = [
   "#F0F8FF", // alice blue
 ];
 let notes = document.querySelector("#note-container");
+let modal = document.querySelector("#editnoteModal")
+let closeBtn = document.querySelector("#closeEditModal")
+let undo = document.querySelector("#undo-btn")
+let editForm = document.querySelector("#edit-note-form")
+var now = Date.now()
+var expiration = now + (1000 * 60 * 60)
 function newElement(ele) {
   return document.createElement(ele);
 }
@@ -26,9 +31,10 @@ function newDiv() {
 
 let data = [];
 window.addEventListener("load", async function() {
-  data = await fetchData('notes','/notes')
+  data = await fetchData('notes', '/notes')
   if (data) {
     notes.classList.add("notes");
+   
 
     for (let i = 0; i < data.length; i++) {
       let deleteIcon = newElement("img");
@@ -70,7 +76,6 @@ window.addEventListener("load", async function() {
       timeContainer.classList.add("self-center");
 
       h4.classList.add("self-center");
-
       div.append(h4, img);
       timeContainer.append(span, time);
       deleteIcon.style.marginLeft = "auto";
@@ -109,7 +114,7 @@ window.addEventListener("load", async function() {
       h4.textContent = e?.title
       notes.append(card_container)
       //when click update icon
-      img.addEventListener('click', () => {
+      img.addEventListener('click', async() => {
         console.log(' i was clicked', e, editForm)
         modal.style.display = 'block';
         editForm.title.defaultValue = e.title
@@ -140,20 +145,20 @@ window.addEventListener("load", async function() {
     }
   }
   else {
-        let h3 = newElement("h3")
-        let writeImage = newElement("img")
-        let div = newDiv()
-        writeImage.setAttribute("src", "./../img/write.svg")
-        writeImage.classList.add("write")
-        div.classList.add("flex")
-        writeImage.classList.add("self-center")
-        div.append(writeImage, h3)
-        h3.textContent = "No Notes here yet! Start writing one!"
-        h3.classList.add("no-notes")
-        notes.classList.remove("notes")
-        notes.append(div)
-      }
-    }
+    let h3 = newElement("h3")
+    let writeImage = newElement("img")
+    let div = newDiv()
+    writeImage.setAttribute("src", "./../img/write.svg")
+    writeImage.classList.add("write")
+    div.classList.add("flex")
+    writeImage.classList.add("self-center")
+    div.append(writeImage, h3)
+    h3.textContent = "No Notes here yet! Start writing one!"
+    h3.classList.add("no-notes")
+    notes.classList.remove("notes")
+    notes.append(div)
+  }
+}
 )
 window.addEventListener('click', (e) => {
   if (e.target === modal) {
@@ -180,10 +185,8 @@ function resetting(f) {
 }
 async function fetchData(localStorageKey, apiLink) {
   let data = []
-  let now = Date.now()
   let cache = JSON.parse(localStorage.getItem(localStorageKey))
 
-  const expiration = now + (1000 * 60 * 60)
   if (cache?.data.length > 0 && cache?.expiration > now) {
     console.log("not expired yet")
     data = cache.data;
@@ -195,7 +198,7 @@ async function fetchData(localStorageKey, apiLink) {
     let cacheData = { data: data, ...{ expiration: expiration } }
     console.log(finalData.data)
 
-    localStorage.setItem("notes", JSON.stringify(cacheData))
+    localStorage.setItem(localStorageKey, JSON.stringify(cacheData))
   }
   return data
 }
@@ -213,7 +216,6 @@ async function updateData(apiLinkToUpdate, updated_data, apiLinkToFetch, localSt
     alert(res.message)
     if (res.status = 200) {
       let now = Date.now()
-      const expiration = now + (1000 * 60 * 60)
       const response = await fetch(apiLinkToFetch)
       let afterEditData = await response.json()
       data = afterEditData.data
@@ -228,8 +230,6 @@ async function updateData(apiLinkToUpdate, updated_data, apiLinkToFetch, localSt
 
 }
 async function deleteData(index, apiLinkToDelete, data, localStorageKey) {
-  let now = Date.now()
-  const expiration = now + (1000 * 60 * 60)
 
   data.splice(index, 1)
   let updatedContent = { data: data, ...{ expiration: expiration } }
@@ -242,3 +242,10 @@ async function deleteData(index, apiLinkToDelete, data, localStorageKey) {
   window.location.reload()
 
 }
+function newElement(ele) {
+  return document.createElement(ele);
+}
+function newDiv() {
+  return newElement("div");
+}
+
