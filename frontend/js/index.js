@@ -23,11 +23,6 @@ function newElement(ele) {
 function newDiv() {
   return newElement("div");
 }
-const editForm = document.getElementById('edit-note-form');
-const undo = document.getElementById('undo-btn');
-const modal = document.getElementById('editnoteModal');
-const openBtn = document.getElementById('openEditNoteBtn');
-const closeBtn = document.getElementById('closeEditModal');
 
 let data = [];
 window.addEventListener("load", async function() {
