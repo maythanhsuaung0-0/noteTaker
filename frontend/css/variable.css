@@ -8,14 +8,11 @@
   position: relative;
   background-color: rgb(216, 183, 220);
 }
-
 .topbar-left {
   display: flex;
   align-items: center;
   gap: 15px;
-  
-}
-
+  }
 .menu-icon {
     position: absolute;
     font-size: 20px;
@@ -49,17 +46,6 @@
   background-color: #f0f0f0;
 }
 
-/* .img {
-    font-weight: bold;
-    position: left;
-    width: 70px;
-    height: 60px;
-} */
-
-/* .picture {
-    height: 60px;
-    width: 70px;
-} */
 
 .sidepanel  {
   width: 0;

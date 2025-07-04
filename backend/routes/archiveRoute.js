@@ -4,11 +4,11 @@ import { readFile, writeFile, appendFile } from 'node:fs/promises';
 import { createReadStream } from 'node:fs'
 import { createInterface } from 'node:readline'
 import fs from 'fs'
-export const notesRouter = express.Router()
+export const archiveRouter = express.Router()
+//  change this
+const dataFileUrl = new URL('../data/archive.txt', import.meta.url)
 
-const dataFileUrl = new URL('../data/notes.txt', import.meta.url)
-
-notesRouter.get('/', async (req, res) => {
+archiveRouter.get('/', async (req, res) => {
   let data = [];
   try {
     fs.access(dataFileUrl, fs.constants.F_OK, (err) => {
@@ -34,13 +34,12 @@ notesRouter.get('/', async (req, res) => {
   }
 
 })
-notesRouter.post('/create', async (req, res) => {
-  console.log('filePath', dataFileUrl)
+archiveRouter.post('/create', async (req, res) => {
+  console.log('filePath', req.body)
   let uuid = uuidv4()
   let date = new Date()
   let id = { id: uuid }
-  let createdTime = { createdBy: date }
-  let data_obj = { ...id, ...req.body, ...createdTime }
+  let data_obj = req.body 
   let data = JSON.stringify(data_obj) + "\n"
   let prev = [];
 
@@ -80,7 +79,7 @@ notesRouter.post('/create', async (req, res) => {
     res.json({ message: "Error while saving note" ,status:500})
   }
 })
-notesRouter.delete('/delete/:id', async (req, res) => {
+archiveRouter.delete('/delete/:id', async (req, res) => {
   const id = req.params.id;
   await readFile(dataFileUrl, 'utf8').then((data, err) => {
     const lines = data.split("\n")

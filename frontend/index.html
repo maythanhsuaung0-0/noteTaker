@@ -15,9 +15,18 @@
   <title>NoteTaker</title>
   <link href="css/index.css" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+
 </head>
 
 <body>
+ <header class="topbar">
+<button class="openbtn" onclick="openNav()">☰ Menu</button>  
+
+<h1>MY NOTES</h1>
+  
+
+</header>
+  
   <div class="container">
     <div class="folders-container">
       <h3>Recent Folders</h3>
@@ -382,9 +391,30 @@
                 </div>
             </div>
           
+
+          
+
+        
+  <div >
+   
+    <aside class="sidebar">
+    
+      <div id="mySidepanel" class="sidepanel">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+  <a href="#">Add newFolder</a>
+  <a href="#">Archive</a>
+  <a href="#">Trash</a>
+  </div>
+  </aside>
+  </div>
+
+  
+
          <script src="./js/indexForm.js"></script>
           <script src="./js/index.js"></script>
           <script src="./js/folder.js"></script>
+<script src="./js/navigation.js"></script>
+
 </body>
 
 </html>
