@@ -64,5 +64,4 @@ document.addEventListener('DOMContentLoaded', function() {
     form.reset();
   });
 
-
 });

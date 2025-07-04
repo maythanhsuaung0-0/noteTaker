@@ -9,35 +9,22 @@
 <body>
 
     <header class="topbar">
-  <div class="topbar-left">
-    <!-- <button type="button" class="button">☰</button> -->
-    <button type="button" class="menu-icon" id="menu-toggle">☰</button>
-    </div>
 
-    <div class="Logo">
- <img src="img/download.png" class="img" alt="Notes Logo">
-</div>
+<button class="openbtn" onclick="openNav()">☰ Menu</button>  
+
+
+    
 
   <h1>MY NOTES</h1>
-        <div class="topbar-right">
+        <!-- <div class="topbar-right">
           <input type="text" placeholder="Search" class="search-box" />
-          <span class="username">Zerich</span>
-          <img src="img/download (1).png" class="picture" alt="user" />
+         
           
-        </div>
+        </div> -->
   
     
   </div>
   
-
- 
-  <div class="dropdown-menu" id="dropdown-menu">
-    <ul>
-      <li>Settings</li>
-      <li>Profile</li>
-      <li>Logout</li>
-    </ul>
-  </div>
 </header>
   <div class="container">
    
@@ -51,16 +38,19 @@
   
 </div>
 
-<button class="openbtn" onclick="openNav()">☰ Toggle Sidepanel</button>  
-<h2>Collapsed Sidepanel</h2>
-<p>Click on the hamburger menu/bar icon to open the sidepanel.</p>
+
+
+<script>
+function openNav() {
+  document.getElementById("mySidepanel").style.width = "250px";
+}
+
+function closeNav() {
+  document.getElementById("mySidepanel").style.width = "0";
+}
+</script>
      
 
-      <ul class="menu">
-        <li class="disable">🗂️ Add newFolder</li>
-        <li class="disabled">🗂️ Archive</li>
-        <li class="disabled">🗑️ Trash</li>
-      </ul>
 
       
     </aside>
