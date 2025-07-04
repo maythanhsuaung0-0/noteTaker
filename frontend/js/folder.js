@@ -74,3 +74,22 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
   });
 });
+  let data = await fetchData('category','/category')
+  if (data?.length !== 0) {
+    console.log(data)
+    for(let i = 0; i<data.length;i++){
+      let currentData = data[i]
+       let folderCard = document.createElement("div")
+      folderCard.style.backgroundColor = lightPalette[i]
+      //create more require elements by looking at the index.html
+      // div class folder-card(i alrdy created),
+      // and class icons(div),note-icon(img),icon(img),one more div,
+      // h4,span elements
+      // after creating, use varname.classList.add() to add classes
+      // and append child into each parent
+      // for eg, in <div class='folder-card'><div class="icons">
+      // so we need folderCard.append(icons)
+      // then to add data, use .textContext = currentData.category
+      // for img, after creating element
+      // use element.setAttribute("src", the url to img/note.svg"
+  }}
