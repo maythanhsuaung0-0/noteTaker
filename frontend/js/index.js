@@ -15,7 +15,7 @@ const lightPalette = [
   "#FFFACD", // lemon chiffon
   "#F0F8FF"  // alice blue
 ];
-let notes = document.querySelector("#note-container")
+const notes = document.querySelector("#note-container")
 function newElement(ele) {
   return document.createElement(ele)
 }
@@ -29,30 +29,12 @@ const openBtn = document.getElementById('openEditNoteBtn');
 const closeBtn = document.getElementById('closeEditModal');
 
 
-var data = [];
+let data = [];
 window.addEventListener('load', async function() {
-  let now = Date.now()
-  const expiration = now + (1000 * 60 * 60)
-  let cache = JSON.parse(localStorage.getItem("notes"))
-  console.log(cache.data.length > 0 && cache?.expiration > now)
-
-  if (cache?.data.length > 0 && cache?.expiration > now) {
-    console.log("not expired yet")
-    data = cache.data;
-  }
-  else {
-    console.log('data should be fetch')
-    const response = await fetch('/notes')
-    let finalData = await response.json()
-    data = finalData.data
-    let cacheData = { data: data, ...{ expiration: expiration } }
-    console.log(finalData.data)
-
-    localStorage.setItem("notes", JSON.stringify(cacheData))
-  }
+  data = await fetchData('notes', '/notes')
   if (data?.length !== 0) {
     notes.classList.add("notes")
-    console.log('length',data.length)
+    console.log('length', data.length)
     for (let i = 0; i < data.length; i++) {
       let deleteIcon = newElement("img")
       let e = data[i]
@@ -105,14 +87,14 @@ window.addEventListener('load', async function() {
       h4.textContent = e?.title
       notes.append(card_container)
       //when click update icon
-      img.addEventListener('click', ()=> {
+      img.addEventListener('click', () => {
         console.log(' i was clicked', e, editForm)
         modal.style.display = 'block';
         editForm.title.defaultValue = e.title
         editForm.content.defaultValue = e.content
         editForm.category.value = e.category
-        
-        editForm.addEventListener('submit', async (event) =>{
+
+        editForm.addEventListener('submit', async (event) => {
           event.preventDefault();
 
           const editFormData = new FormData(editForm);
@@ -121,34 +103,8 @@ window.addEventListener('load', async function() {
             content: editFormData.get('content'),
             category: editFormData.get('category'),
           };
-          let updated_data = {...{id:e.id},...editedData, ...{createdBy:e.createdBy}} 
-          try {
-            console.log(e,'to bne edit')
-            const edit_res = await fetch(`/notes/update/${e.id}`,
-              {
-                method: 'PUT',
-                headers: {
-                  'Content-type': 'application/json'
-                },
-                body: JSON.stringify(updated_data)
-              })
-            let res = await edit_res.json()
-            alert(res.message)
-            if (res.status = 200) {
-              let now = Date.now()
-              const expiration = now + (1000 * 60 * 60)
-              const response = await fetch('/notes')
-              let afterEditData= await response.json()
-              data = afterEditData.data
-              let cacheData = { data: data, ...{ expiration: expiration } }
-              localStorage.setItem("notes", JSON.stringify(cacheData))
-
-            }
-          }
-          catch (err) {
-            console.log('cannot create note', err)
-          }
-
+          let updated_data = { ...{ id: e.id }, ...editedData, ...{ createdBy: e.createdBy } }
+          await updateData(`/notes/update/${e.id}`, updated_data, '/notes', 'notes')
           modal.style.display = 'none';
           window.location.reload()
           resetting(editForm)
@@ -157,17 +113,7 @@ window.addEventListener('load', async function() {
 
       })
       deleteIcon.addEventListener('click', async function() {
-        console.log(e.id)
-        data.splice(i, 1)
-        console.log('data without deleted guy', i, data)
-        let updatedContent = { data: data, ...{ expiration: expiration } }
-        localStorage.setItem("notes", JSON.stringify(updatedContent))
-        const res = await fetch(`/notes/delete/${e.id}`, {
-          method: 'DELETE'
-        })
-        let response = await res.json()
-        alert(response.message)
-        window.location.reload()
+        await deleteData(i,`/notes/delete/${e.id}`,data,'notes')
       })
     }
   }
@@ -208,5 +154,69 @@ function resetting(f) {
   f.content.defaultValue = ""
   f.category.value = ""
   f.reset()
+
+}
+async function fetchData(localStorageKey, apiLink) {
+  let data = []
+  let now = Date.now()
+  let cache = JSON.parse(localStorage.getItem(localStorageKey))
+
+  const expiration = now + (1000 * 60 * 60)
+  if (cache?.data.length > 0 && cache?.expiration > now) {
+    console.log("not expired yet")
+    data = cache.data;
+  }
+  else {
+    const response = await fetch(apiLink)
+    let finalData = await response.json()
+    data = finalData.data
+    let cacheData = { data: data, ...{ expiration: expiration } }
+    console.log(finalData.data)
+
+    localStorage.setItem("notes", JSON.stringify(cacheData))
+  }
+  return data
+}
+async function updateData(apiLinkToUpdate, updated_data, apiLinkToFetch, localStorageKey) {
+  try {
+    const edit_res = await fetch(apiLinkToUpdate,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify(updated_data)
+      })
+    let res = await edit_res.json()
+    alert(res.message)
+    if (res.status = 200) {
+      let now = Date.now()
+      const expiration = now + (1000 * 60 * 60)
+      const response = await fetch(apiLinkToFetch)
+      let afterEditData = await response.json()
+      data = afterEditData.data
+      let cacheData = { data: data, ...{ expiration: expiration } }
+      localStorage.setItem(localStorageKey, JSON.stringify(cacheData))
+
+    }
+  }
+  catch (err) {
+    console.log('cannot create note', err)
+  }
+
+}
+async function deleteData(index,apiLinkToDelete,data,localStorageKey){
+        let now = Date.now()
+        const expiration = now + (1000 * 60 * 60)
+
+        data.splice(index, 1)
+        let updatedContent = { data: data, ...{ expiration: expiration } }
+        localStorage.setItem(localStorageKey, JSON.stringify(updatedContent))
+        const res = await fetch(apiLinkToDelete, {
+          method: 'DELETE'
+        })
+        let response = await res.json()
+        alert(response.message)
+        window.location.reload()
 
 }
