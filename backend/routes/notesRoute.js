@@ -5,6 +5,7 @@ import { createReadStream } from 'node:fs'
 import { createInterface } from 'node:readline'
 import fs from 'fs'
 export const notesRouter = express.Router()
+
 const dataFileUrl = new URL('../data/notes.txt', import.meta.url)
 
 notesRouter.get('/', async (req, res) => {
