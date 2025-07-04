@@ -98,3 +98,67 @@ async function createData(apiLinkToCreate,dataToUpload,apiLinkToFetch,localStora
 
 
 }
+async function fetchData(localStorageKey, apiLink) {
+  let data = []
+  let now = Date.now()
+  let cache = JSON.parse(localStorage.getItem(localStorageKey))
+
+  const expiration = now + (1000 * 60 * 60)
+  if (cache?.data.length > 0 && cache?.expiration > now) {
+    console.log("not expired yet")
+    data = cache.data;
+  }
+  else {
+    const response = await fetch(apiLink)
+    let finalData = await response.json()
+    data = finalData.data
+    let cacheData = { data: data, ...{ expiration: expiration } }
+    console.log(finalData.data)
+
+    localStorage.setItem("notes", JSON.stringify(cacheData))
+  }
+  return data
+}
+async function updateData(apiLinkToUpdate, updated_data, apiLinkToFetch, localStorageKey) {
+  try {
+    const edit_res = await fetch(apiLinkToUpdate,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify(updated_data)
+      })
+    let res = await edit_res.json()
+    alert(res.message)
+    if (res.status = 200) {
+      let now = Date.now()
+      const expiration = now + (1000 * 60 * 60)
+      const response = await fetch(apiLinkToFetch)
+      let afterEditData = await response.json()
+      data = afterEditData.data
+      let cacheData = { data: data, ...{ expiration: expiration } }
+      localStorage.setItem(localStorageKey, JSON.stringify(cacheData))
+
+    }
+  }
+  catch (err) {
+    console.log('cannot create note', err)
+  }
+
+}
+async function deleteData(index, apiLinkToDelete, data, localStorageKey) {
+  let now = Date.now()
+  const expiration = now + (1000 * 60 * 60)
+
+  data.splice(index, 1)
+  let updatedContent = { data: data, ...{ expiration: expiration } }
+  localStorage.setItem(localStorageKey, JSON.stringify(updatedContent))
+  const res = await fetch(apiLinkToDelete, {
+    method: 'DELETE'
+  })
+  let response = await res.json()
+  alert(response.message)
+  window.location.reload()
+
+}

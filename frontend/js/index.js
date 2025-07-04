@@ -17,9 +17,6 @@ const lightPalette = [
   "#F0F8FF", // alice blue
 ];
 let notes = document.querySelector("#note-container");
-=======
-const notes = document.querySelector("#note-container")
->>>>>>> 4bd9aa38c4175441f24f73c9674c43edc6874743
 function newElement(ele) {
   return document.createElement(ele);
 }
@@ -32,35 +29,12 @@ const modal = document.getElementById('editnoteModal');
 const openBtn = document.getElementById('openEditNoteBtn');
 const closeBtn = document.getElementById('closeEditModal');
 
-<<<<<<< HEAD
-var data = [];
-window.addEventListener("load", async function () {
-  let now = Date.now();
-  const expiration = now + 1000 * 60 * 60;
-  let cache = JSON.parse(localStorage.getItem("notes"));
-  console.log(cache);
-  if (cache?.data.length > 0 && cache?.expiration > now) {
-    console.log("not expired yet");
-    data = cache.data;
-  } else {
-    const response = await fetch("/notes");
-    let finalData = await response.json();
-    data = finalData.data;
-    let cacheData = { data: data, ...{ expiration: expiration } };
-    localStorage.setItem("notes", JSON.stringify(cacheData));
-  }
+let data = [];
+window.addEventListener("load", async function() {
+  data = await fetchData('notes','/notes')
   if (data) {
     notes.classList.add("notes");
-    console.log(data.length);
-=======
 
-let data = [];
-window.addEventListener('load', async function() {
-  data = await fetchData('notes', '/notes')
-  if (data?.length !== 0) {
-    notes.classList.add("notes")
-    console.log('length', data.length)
->>>>>>> 4bd9aa38c4175441f24f73c9674c43edc6874743
     for (let i = 0; i < data.length; i++) {
       let deleteIcon = newElement("img");
       deleteIcon.classList.add("self-center");
@@ -106,7 +80,7 @@ window.addEventListener('load', async function() {
       timeContainer.append(span, time);
       deleteIcon.style.marginLeft = "auto";
       // add archive icon
-      time_flex.append(clockIcon, timeContainer, deleteIcon,archiveIcon);
+      time_flex.append(clockIcon, timeContainer, deleteIcon, archiveIcon);
       card_title.append(date, div);
       card_container.append(card_title, detail, time_flex);
       // add data
@@ -116,47 +90,21 @@ window.addEventListener('load', async function() {
         hour: "2-digit",
         minute: "2-digit",
       });
-<<<<<<< HEAD
-      span.textContent = "Created At ";
-      time.textContent = formattedTimeLocale;
-      img.setAttribute("src", "./../img/edit.svg");
-      clockIcon.setAttribute("src", "./../img/clock.svg");
-
-      detail.textContent =
-        e.content.length < 150 ? e.content : e.content.slice(0, 150) + " ...";
-      h4.textContent = e.title;
-      notes.append(card_container);
-
-      deleteIcon.addEventListener("click", async function () {
+      archiveIcon.addEventListener("click", async function() {
         console.log(e.id);
-        data.splice(i, 1);
-        console.log("data without deleted guy", i, data);
-        let updatedContent = { data: data, ...{ expiration: expiration } };
-        localStorage.setItem("notes", JSON.stringify(updatedContent));
-        const res = await fetch(`/notes/delete/${e.id}`, {
-          method: "DELETE",
-        });
-        let response = await res.json();
-        alert(response.message);
-        window.location.reload();
-      });
 
-      archiveIcon.addEventListener("click", async function () {
-        console.log(e.id);
-        
         console.log("archive guy", i, e);
         let updatedContent = { data: e, ...{ expiration: expiration } };
         localStorage.setItem("archive", JSON.stringify(updatedContent));
         const res = await fetch(`/archive/create`, {
-          method: "POST",   headers: {
+          method: "POST", headers: {
             'Content-type': 'application/json'
-          },body: JSON.stringify(e)
+          }, body: JSON.stringify(e)
         });
         let response = await res.json();
         alert(response.message);
         window.location.reload();
       });
-=======
       span.textContent = "Created At "
       time.textContent = formattedTimeLocale
       img.setAttribute("src", './../img/edit.svg')
@@ -192,42 +140,25 @@ window.addEventListener('load', async function() {
 
       })
       deleteIcon.addEventListener('click', async function() {
-        await deleteData(i,`/notes/delete/${e.id}`,data,'notes')
+        await deleteData(i, `/notes/delete/${e.id}`, data, 'notes')
       })
->>>>>>> 4bd9aa38c4175441f24f73c9674c43edc6874743
     }
-  } else {
-    let h3 = newElement("h3");
-    let writeImage = newElement("img");
-    let div = newDiv();
-    writeImage.setAttribute("src", "./../img/write.svg");
-    writeImage.classList.add("write");
-    div.classList.add("flex");
-    writeImage.classList.add("self-center");
-    div.append(writeImage, h3);
-    h3.textContent = "No Notes here yet! Start writing one!";
-    h3.classList.add("no-notes");
-    notes.classList.remove("notes");
-    notes.append(div);
   }
-<<<<<<< HEAD
-});
-=======
   else {
-    let h3 = newElement("h3")
-    let writeImage = newElement("img")
-    let div = newDiv()
-    writeImage.setAttribute("src", "./../img/write.svg")
-    writeImage.classList.add("write")
-    div.classList.add("flex")
-    writeImage.classList.add("self-center")
-    div.append(writeImage, h3)
-    h3.textContent = "No Notes here yet! Start writing one!"
-    h3.classList.add("no-notes")
-    notes.classList.remove("notes")
-    notes.append(div)
-  }
-}
+        let h3 = newElement("h3")
+        let writeImage = newElement("img")
+        let div = newDiv()
+        writeImage.setAttribute("src", "./../img/write.svg")
+        writeImage.classList.add("write")
+        div.classList.add("flex")
+        writeImage.classList.add("self-center")
+        div.append(writeImage, h3)
+        h3.textContent = "No Notes here yet! Start writing one!"
+        h3.classList.add("no-notes")
+        notes.classList.remove("notes")
+        notes.append(div)
+      }
+    }
 )
 window.addEventListener('click', (e) => {
   if (e.target === modal) {
@@ -301,19 +232,18 @@ async function updateData(apiLinkToUpdate, updated_data, apiLinkToFetch, localSt
   }
 
 }
-async function deleteData(index,apiLinkToDelete,data,localStorageKey){
-        let now = Date.now()
-        const expiration = now + (1000 * 60 * 60)
+async function deleteData(index, apiLinkToDelete, data, localStorageKey) {
+  let now = Date.now()
+  const expiration = now + (1000 * 60 * 60)
 
-        data.splice(index, 1)
-        let updatedContent = { data: data, ...{ expiration: expiration } }
-        localStorage.setItem(localStorageKey, JSON.stringify(updatedContent))
-        const res = await fetch(apiLinkToDelete, {
-          method: 'DELETE'
-        })
-        let response = await res.json()
-        alert(response.message)
-        window.location.reload()
+  data.splice(index, 1)
+  let updatedContent = { data: data, ...{ expiration: expiration } }
+  localStorage.setItem(localStorageKey, JSON.stringify(updatedContent))
+  const res = await fetch(apiLinkToDelete, {
+    method: 'DELETE'
+  })
+  let response = await res.json()
+  alert(response.message)
+  window.location.reload()
 
 }
->>>>>>> 4bd9aa38c4175441f24f73c9674c43edc6874743

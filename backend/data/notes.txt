@@ -1,8 +1,6 @@
-<<<<<<< HEAD
 {"id":"4d6f0915-c2f5-4098-ae0f-11c6ef7f0ef1","title":"new day","content":"ne wme","category":"","createdBy":"2025-07-03T02:25:23.639Z"}
-{"id":"51a46381-eb44-4269-b59f-cfc3012b31d5","title":"lolll","content":"tf","category":"","createdBy":"2025-07-03T02:27:44.523Z"}
+{"id":"51a46381-eb44-4269-b59f-cfc3012b31d5","title":"my day","content":"tf","category":"","createdBy":"2025-07-03T02:27:44.523Z"}
 {"id":"6be1d3fd-a045-4601-8f70-7e85482e463d","title":"CSS Notes","content":"fkfgmiagdfimrd","category":"other","createdBy":"2025-07-03T14:57:18.186Z"}
 {"id":"56b8aef4-8931-4277-8150-766ed364e336","title":"JavaScript Notes","content":"wjcidsbnclkwnjecowiejdiew","category":"tasks","createdBy":"2025-07-03T16:00:49.755Z"}
-=======
 {"id":"44b3fca4-9822-4d5f-8983-19b0c94527ff","title":"so tired","content":"lol","category":"","createdBy":"2025-07-04T07:17:01.811Z"}
->>>>>>> 4bd9aa38c4175441f24f73c9674c43edc6874743
+{"id":"85d22898-6e1a-4631-9942-c96000b3d09e","title":"new day","content":"morning","category":"","createdBy":"2025-07-04T14:34:13.632Z"}
