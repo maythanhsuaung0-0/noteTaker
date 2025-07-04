@@ -16,7 +16,6 @@ const lightPalette = [
   "#FFFACD", // lemon chiffon
   "#F0F8FF", // alice blue
 ];
-<<<<<<< HEAD
 let notes = document.querySelector("#note-container");
 =======
 const notes = document.querySelector("#note-container")
