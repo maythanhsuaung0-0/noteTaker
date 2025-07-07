@@ -2,7 +2,6 @@ import express from 'express'
 import path from 'path'
 import { fileURLToPath } from 'url';
 import bodyParser from 'body-parser';
-import { v4 as uuidv4 } from 'uuid'
 import { notesRouter } from './routes/notesRoute.js';
 import { categoryRouter } from './routes/categoryRoute.js';
 import { archiveRouter } from './routes/archiveRoute.js';
