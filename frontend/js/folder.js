@@ -23,11 +23,10 @@ document.addEventListener("DOMContentLoaded", async function() {
   const closeFolderBtn = document.getElementById("closeModal2");
   let carousel = document.querySelector(".carousel")
   // Open/close note modal
-  // add the tasks here !!!!! good luck my fri
   let folderData = []
   folderData = await fetchData('/category', 'category')
   console.log('folder',folderData)
-  if (folderData.length > 0) {
+  if (folderData?.length > 0) {
     folderData.map((e) => {
       let folderCard = newDiv()
       folderCard.classList.add("folder-card")
@@ -79,7 +78,7 @@ async function fetchData(localStorageKey, apiLink) {
   let cache = JSON.parse(localStorage.getItem(localStorageKey))
 
   const expiration = now + (1000 * 60 * 60)
-  if (cache?.data.length > 0 && cache?.expiration > now) {
+  if (cache?.data?.length > 0 && cache?.expiration > now) {
     console.log("not expired yet")
     data = cache.data;
   }
@@ -128,7 +127,7 @@ async function fetchData(localStorageKey, apiLink) {
   let cache = JSON.parse(localStorage.getItem(localStorageKey))
 
   const expiration = now + (1000 * 60 * 60)
-  if (cache?.data.length > 0 && cache?.expiration > now) {
+  if (cache?.data?.length > 0 && cache?.expiration > now) {
     console.log("not expired yet")
     data = cache.data;
   }
